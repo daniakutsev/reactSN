@@ -1,0 +1,14 @@
+
+.nav {
+    grid-area: nav;
+    background-color: bisque;
+    padding:20px;
+}
+.linkItem{
+    text-decoration: none;
+    color:dimgrey;
+}
+.active{
+    color:black;
+    text-decoration: none;
+}

@@ -1,3 +1,24 @@
-ul li{
-  list-style-type: square;
+.wrapper {
+    margin: 0 auto;
+    width: 1000px;
+    display: grid;
+    grid-template-areas:
+"header header"
+"nav content";
+
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
 }
+
+.wrapper-content {
+    grid-area: content;
+    background-color: dimgrey;
+}
+
+
+
+
+
+
+
+
