@@ -1,35 +1,39 @@
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import React from "react";
 
 
-let dialogs = [
-    {id: 1, name: "1"},
-    {id: 2, name: "2"},
-    {id: 3, name: "3"},
-    {id: 4, name: "4"}
-]
 
-let dialogsElements = dialogs.map(d => <DialogItem id={d.id} name={d.name}/>)
 
-let messages = [
+const Dialogs = (props) => {
 
-    {id: 1, message: "1"},
-    {id: 2, message: "2"},
-    {id: 3, message: "3"},
-    {id: 4, message: "4"}
-]
+    let newMessageElement = React.createRef();
 
-let messagesElements = messages.map(m => <Message id={m.id} message={m.message}/>)
+    let addMessage = () => {
+        let message = newMessageElement.current.value;
+        alert(message);
+    }
 
-const Dialogs = () => {
+    let dialogsElements =  props.state.dialogs.map(d => <DialogItem key={d.id} id={d.id} name={d.name}/>)
+    let messagesElements =  props.state.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
+
             <div className={s.messages}>
                 {messagesElements}
+            </div>
+            <div >
+                <div>
+                    <textarea ref={newMessageElement}></textarea>
+                </div>
+                <div>
+                    <button onClick={addMessage}>Add post</button>
+                </div>
             </div>
         </div>
     )

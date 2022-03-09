@@ -1,13 +1,14 @@
-import c from './ProfilePage.module.css'
+
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ ProfileInfo/ProfileInfo";
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
+
     return (
-        <div className={c.content}>
+        <div>
 
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts posts={props.state.posts}/>
 
         </div>
     )
