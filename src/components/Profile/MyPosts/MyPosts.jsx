@@ -1,7 +1,8 @@
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import React from "react";
-import {addPostAC, onPostChangeAC} from "../../../redux/state";
+import {addPostAC, onPostChangeAC} from "../../../redux/profileReducer";
+
 
 const MyPosts = (props) => {
     let postsElements =
