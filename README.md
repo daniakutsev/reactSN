@@ -1,1 +1,1 @@
-# reactSN
+# social network on react
