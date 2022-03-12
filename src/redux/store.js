@@ -1,4 +1,3 @@
-
 import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReducer";
 
@@ -13,8 +12,6 @@ let store = {
             ],
             newPostText: ""
         },
-
-
         dialogsPage: {
             newMessageBody: "",
             messages: [

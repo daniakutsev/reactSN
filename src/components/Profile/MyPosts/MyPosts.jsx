@@ -5,8 +5,8 @@ import {addPostAC, onPostChangeAC} from "../../../redux/profileReducer";
 
 
 const MyPosts = (props) => {
-    let postsElements =
-        props.posts.map(p => <Post key={p.id} id={p.id} message={p.message}/>)
+
+    let postsElements = props.posts.map(p => <Post key={p.id} id={p.id} message={p.message}/>)
 
 
     let newPostElement = React.createRef();
