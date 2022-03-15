@@ -14,6 +14,7 @@ const Dialogs = (props) => {
         props.sendMessageClick();
     }
     let onNewMessageChange = (body) => {
+        body = body.target.value
         props.updateNewMessageBody(body)
     }
 
@@ -23,6 +24,7 @@ const Dialogs = (props) => {
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
+
 
             <div className={s.messages}>
                 {messagesElements}
