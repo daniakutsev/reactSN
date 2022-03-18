@@ -1,44 +1,29 @@
 import React from "react";
 import s from './Users.module.css'
+import * as axios from 'axios'
+import userPhoto from "../../assets/img/userPhoto.png"
 
 const Users = (props) => {
+    let getUsers = () => {
+        if (props.users.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users")
+                .then(response => {
+                    props.setUsers(
+                        response.data.items
+                    )
+                })
 
-    if (props.users.length == 0) {
-        props.setUsers(
-            [
-                {
-                    id: 1,
-                    photoUrl: 'https://seeding.com.ua/wp-content/uploads/2017/04/%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80%D0%BA%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%D0%BE%D0%B2.jpg',
-                    followed: true,
-                    fullname: 'Dania Kutsev',
-                    status: 'it`s my status',
-                    location: {
-                        country: 'Ukraine',
-                        city: 'Poltava'
-                    }
-                },
-               {
-                    id: 2,
-                    photoUrl: 'https://seeding.com.ua/wp-content/uploads/2017/04/%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80%D0%BA%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%BE%D1%82%D0%B7%D1%8B%D0%B2%D0%BE%D0%B2.jpg',
-                    followed: true,
-                    fullname: 'dania kutsev',
-                    status: 'it`s my status',
-                    location: {
-                        country: 'ukraine',
-                        city: 'poltava'
-                    }
-                }
-            ]
-        )
+        }
     }
-
     return <div>
+        <button onClick={getUsers}>get users</button>
         {
             props.users.map(u => <div key={u.id}>
                 <div>
                     <div>
                         <div>
-                            <img className={s.userPhoto} src={u.photoUrl}/>
+                            <img className={s.userPhoto}
+                                 src={u.photos.small ? u.photos.small : userPhoto}/>
                         </div>
                         <div>
                             {u.followed ?
@@ -54,12 +39,12 @@ const Users = (props) => {
                         </div>
                     </div>
                     <div>
-                        <div>{u.fullname}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </div>
                     <div>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>{"u.location.country"}</div>
+                        <div>{"u.location.city"}</div>
                     </div>
                 </div>
 
