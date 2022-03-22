@@ -57,7 +57,7 @@ class UsersContainer extends React.Component {
         return <Users totalUsersCount={this.props.totalUsersCount}
                       pageSize={this.props.pageSize}
                       currentPage={this.props.currentPage}
-                      {/* eslint-disable-next-line no-unused-expressions */}
+                      /* eslint-disable-next-line no-unused-expressions */
                       onPageChanged= {() => {this.onPageChanged}}
 
                       users={this.props.users}
