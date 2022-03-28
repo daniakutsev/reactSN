@@ -4,7 +4,7 @@ import {
     setCurrentPage,
     setUsers,
     setUsersTotalCount,
-    toggleFetching,
+    toggleIsFetching,
     unfollow
 } from "../../redux/usersReducer";
 import Users from "./Users";
@@ -85,6 +85,6 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setUsers,
     setUsersTotalCount,
-    toggleFetching,
+    toggleIsFetching,
     unfollow
 } )(UsersContainer)
