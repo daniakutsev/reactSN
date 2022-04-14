@@ -1,3 +1,5 @@
+import {followAPI, usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -67,7 +69,7 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 followInProgress: action.isFetching ?
-                    [...state.followInProgress,action.userId]
+                    [...state.followInProgress, action.userId]
                     : state.followInProgress.filter(id => id != action.userId)
             }
         }
@@ -82,6 +84,40 @@ export const setUsers = (users) => ({type: SET_USERS, users})
 export const setUsersTotalCount = (totalUsersCount) => ({type: SET_USERS_TOTAL_COUNT, totalUsersCount})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_FETCHING, isFetching})
-export const toggleFollowingIsFetching = (isFetching,userId) => ({type: TOGGLE_FOLLOWING_IS_FETCHING, isFetching, userId})
+export const toggleFollowingIsFetching = (isFetching, userId) => ({
+    type: TOGGLE_FOLLOWING_IS_FETCHING,
+    isFetching,
+    userId
+})
+
+export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
+
+    dispatch(toggleIsFetching(true))
+
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setUsersTotalCount(data.totalCount))
+    })
+}
+
+export const followSuccessThunkCreator = (userId) => (dispatch) => {
+    dispatch(toggleFollowingIsFetching(true, userId))
+    followAPI.follow(userId).then(data => {
+        if (data.resultCode == 0) {
+            dispatch(follow(userId))
+        }
+        dispatch(toggleFollowingIsFetching(false, userId))
+    })
+}
+export const unfollowSuccessThunkCreator = (userId) => (dispatch) => {
+    dispatch(toggleFollowingIsFetching(true, userId))
+    followAPI.unfollow(userId).then(data => {
+        if (data.resultCode == 0) {
+            dispatch(unfollow(userId))
+        }
+        dispatch(toggleFollowingIsFetching(false, userId))
+    })
+}
 
 export default usersReducer

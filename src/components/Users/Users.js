@@ -24,6 +24,7 @@ let Users = (props) => {
         </div>
         {
             props.users.map(u => <div key={u.id}>
+
                 <div>
                     <div>
                         <div>
@@ -34,25 +35,14 @@ let Users = (props) => {
                         </div>
                         <div>
                             {u.followed ?
+
                                 <button disabled={props.followInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleFollowingIsFetching(true, u.id)
-                                    followAPI.unfollow(u.id).then(data => {
-                                        if (data.resultCode == 0) {
-                                            props.unfollow(u.id)
-                                        }
-                                        props.toggleFollowingIsFetching(false, u.id)
-                                    })
+                                    props.unfollowSuccessThunkCreator(u.id)
                                 }}>
                                     Unfollow
                                 </button> :
                                 <button disabled={props.followInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleFollowingIsFetching(true, u.id)
-                                    followAPI.follow(u.id).then(data => {
-                                        if (data.resultCode == 0) {
-                                            props.follow(u.id)
-                                        }
-                                        props.toggleFollowingIsFetching(false, u.id)
-                                    })
+                                    props.followSuccessThunkCreator(u.id)
                                 }}>Follow</button>}
                         </div>
                     </div>
