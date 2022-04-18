@@ -12,16 +12,18 @@ import {
 import Users from "./Users";
 import React from "react";
 import Preloader from "../common/Preloader/Preloader";
+import {Navigate} from "react-router-dom";
 
 
 let mapStateToProps = (state) => {
     return {
+        isAuth: state.auth.isAuth,
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followInProgress:state.usersPage.followInProgress
+        followInProgress: state.usersPage.followInProgress
     }
 }
 
@@ -51,7 +53,7 @@ let mapStateToProps = (state) => {
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-       this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber) => {
@@ -61,8 +63,8 @@ class UsersContainer extends React.Component {
     }
 
     render() {
+        if (!this.props.isAuth) return <Navigate to="/login"/>
         return <>
-
             <Preloader isFetching={this.props.isFetching}/>
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
