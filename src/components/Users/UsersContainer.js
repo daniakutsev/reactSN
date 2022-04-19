@@ -1,18 +1,21 @@
 import {connect} from "react-redux";
 import {
-    follow, followSuccessThunkCreator,
+    follow,
+    followSuccessThunkCreator,
     getUsersThunkCreator,
     setCurrentPage,
     setUsers,
     setUsersTotalCount,
     toggleFollowingIsFetching,
     toggleIsFetching,
-    unfollow, unfollowSuccessThunkCreator
+    unfollow,
+    unfollowSuccessThunkCreator
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import React from "react";
 import Preloader from "../common/Preloader/Preloader";
-import {Navigate} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 let mapStateToProps = (state) => {
@@ -63,7 +66,7 @@ class UsersContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAuth) return <Navigate to="/login"/>
+
         return <>
             <Preloader isFetching={this.props.isFetching}/>
             <Users totalUsersCount={this.props.totalUsersCount}
@@ -80,15 +83,19 @@ class UsersContainer extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, {
-    follow,
-    setCurrentPage,
-    setUsers,
-    setUsersTotalCount,
-    toggleIsFetching,
-    unfollow,
-    toggleFollowingIsFetching,
-    getUsersThunkCreator,
-    followSuccessThunkCreator,
-    unfollowSuccessThunkCreator
-})(UsersContainer)
+
+export default compose(
+    connect(mapStateToProps, {
+        follow,
+        setCurrentPage,
+        setUsers,
+        setUsersTotalCount,
+        toggleIsFetching,
+        unfollow,
+        toggleFollowingIsFetching,
+        getUsersThunkCreator,
+        followSuccessThunkCreator,
+        unfollowSuccessThunkCreator
+    }),
+    withAuthRedirect
+)(UsersContainer)
