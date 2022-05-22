@@ -10,7 +10,7 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let pathname = window.location.pathname;
         let userId = pathname.substring(9)
-        if (!userId) userId = 2;
+        if (!userId) userId = 23254;
         this.props.setUserProfileThunkCreator(userId);
         this.props.getStatus(userId);
     }
